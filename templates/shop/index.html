@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block html_header %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block html_body %}
+<div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+      {% for item in item %}
+          {% if forloop.first %}
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide 1"></button>
+          {% else %}
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide 2"></button>
+          {% endif %}
+      {% endfor %}
+{#      #}
+{#    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>#}
+{#    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>#}
+{#    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>#}
+  </div>
+  <div class="carousel-inner">
+      {% for item in item %}
+        {% if forloop.first %}
+            <div class="carousel-item active">
+            <a href="{% url 'shop:product_detail' item.product.p_id %}">
+              <img src="{{ item.product.p_image }}" class="d-block hot-product" alt="...">
+                </a>
+              <div class="carousel-caption d-none d-md-block">
+                  <a href="{% url 'shop:product_detail' item.product.p_id %}">
+                <h5>{{ item.product.p_title }}</h5>
+                  </a>
+                  <a href="{% url 'shop:product_detail' item.product.p_id %}">
+                <p>￦{{ item.product.p_lprice }}</p>
+                  </a>
+              </div>
+            </div>
+            {% else %}
+            <div class="carousel-item">
+                  <a href="{% url 'shop:product_detail' item.product.p_id %}">
+              <img src="{{ item.product.p_image }}" class="d-block hot-product" alt="...">
+                      </a>
+              <div class="carousel-caption d-none d-md-block">
+                  <a href="{% url 'shop:product_detail' item.product.p_id %}">
+                <h5>{{ item.product.p_title }}</h5>
+                      </a>
+                  <a href="{% url 'shop:product_detail' item.product.p_id %}">
+                <p>￦{{ item.product.p_lprice }}</p>
+                      </a>
+              </div>
+            </div>
+        {% endif %}
+      {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+    <br><br>
+
+    <div class="content1">New</div><br>
+
+
+          <div class="row mb-4">
+          {% for new in new %}
+          <div class="col">
+          <div class="card h-100 shadow-sm">
+              <a href="{% url 'shop:product_detail' new.p_id %}">
+              <img class="card-img-top" src="{{ new.p_image }}">
+                  </a>
+            <div class="card-body">
+              <p class="card-title"><a href="{% url 'shop:product_detail' new.p_id %}">{{ new.p_title }}</a></p>
+              <div class="card-text d-flex justify-content-between align-items-center">
+                  <a href="{% url 'shop:product_detail' new.p_id %}">
+                <small class="text-muted">{{ new.p_lprice }}원</small>
+                  </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+
+    <div style="text-align: center">
+    <a href="{% url 'shop:get_product_list'%}">
+        <button type="button" class="btn btn-light">다른 상품 더보기</button>
+    </a>
+        </div>
+    <br><br>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>User Store</title>
+    <!-- JQuery CDN -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- pixcel store 추출 contents -->
+    <script src="http://pixelstore.kr/ind-script/optimizer.php?filename=08_Iz03VNzQq0i8oyk8vSszVLy8v18_MS-EqTi7KLCjRz0oFY57czDyerGIA&amp;type=js&amp;k=f8c449ff82a3977059c3195db755507c2666c339&amp;t=1625596016"></script>
+
+    <script type="text/javascript" src="http://pixelstore.kr/ec-js/common.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:500,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://pixelstore.kr/ind-script/optimizer.php?filename=tZXBbsMgDIbvya57DmvdS2zSDnsFAm5CAxjZRu3efrTdoVMuUwZHLPv7kbF_YKGI8HJgyEwzmwiMQoUtghWBI1NSsBQjpacaeIa_5KMdhEJRT2mY6LKzsKjuFQ3mC3lfqZop4EMp2rEIskD2FwwJ9Uy8Qi5T8HZcNAYQh6ND8XMCWX06vEKVp6IwGfH2JlMF6gE399oDv_IiuRIQiB3yVWZF_TR2NTO2hjv7no7Uuh-bgWpCvQd6vV3xvchKFNTnXvgFQzd2XSpXbLeeZzP7ZLTbPtZl74Xe2Fdb-i9Xbd2TfgZY0-w_2aM73ZDuNDRZ-Adem2l-AE6a2hnyT1NjqWYhC-UPL9qcLmjYLm9o3P2j-gY&type=css&k=cf2fd110a4a2242b370c88bea2cc07e7b9c51405&t=1623306900">
+    <link rel="stylesheet" type="text/css" href="http://pixelstore.kr/ind-script/optimizer.php?filename=rc3BDcIwDEDRAcKVOSzBKExQHJNYdWIrdoBuT9kh5y-9D1UbAWGaTsPB-EvSKT46drD5FMZUowl4ppTJuXTwnfvtDugOTfMUAtkOnQG4BRUdx-VMV1gIv1SDxnK2TQn2qvaobMa9LD-g9veJsHbDP_4D&type=css&k=4ee2dca23e45837a0ee99605d578fffbd3ce55e9&t=1623306900">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="http://pixelstore.kr/ind-script/optimizer.php?filename=tZVNcsMgDIX3drc9h6bpJbroJfhRbWKBPEhMk9uXpF44k03HhSUa6RM8xANmjghvpwxr5imbCBmFS3YITgS-MicFxzFyeqmBV_hLPrpBmIoGToPly8HConq0KZkr5mOlaizhrhTdWASzwBouSAn1m_MCa7EU3DhrJBCPo0cJUwJZQjq9w-jPd7o_D0LBP2zlCO_GiuwL4e0UvjiFiKmsxi1mwvZwCqKJczT0T3a9By4K1khw90ZPk9SE-htoTa1TURc4lNCLrMykYe2Fn5G6sbdR6YY3U0hGsZvyxvZCP_lWW_qDnbbWhLoJXtNcO1dt8uB3vDbTvANaTe1seRM1lmoWMvP6We25OV3QZDd_oNm-qx8&amp;type=css&amp;k=4722101356bbc492dfe742d0db256d292d539a8d&amp;t=1623306900">
+    <link rel="stylesheet" type="text/css" href="http://pixelstore.kr/ind-script/optimizer.php?filename=rc5BDsIwDATAe8OVd1iCp_CC1DGN1cSO4gTo7wmIG8f2uFppdiFqJiB03agaFH5REmpPrSuUPidGF1tOYIFcIONFwFaWyxXQDLKGngiS37Q3QN9o0bqdRnWGA-G7aqO6k_1ZszfG7wbhNAJNo9iN_3_OPTW2qOUWuRSW5fAFVHkMhFUKfvA3&amp;type=css&amp;k=111119f4859251145e0d843716250b616a122154&amp;t=1623306900">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
+    {% block html_header %}
+    {% endblock %}
+</head>
+    <body>
+        <div class="fix_header">
+            <div id="header_all">
+                <div id="header">
+                    <div class="inner">
+                        <div class="left_menu">
+                            <ul>
+                                <li class="xans-element- xans-layout xans-layout-statelogon login_start ">
+                                    {% if user.is_authenticated %}
+                                    <a href="{% url 'common:logout' %}">로그아웃</a>
+                                        <a href="{% url 'shop:mypage' %}">마이페이지</a>
+                                    {% else %}
+                                    <a href="{% url 'common:login' %}">로그인</a>
+                                    {% endif %}
+{#                                    <a href="{% url 'shop:get_notice_list' %}">공지사항</a>#}
+                                    <a href="{% url 'shop:notice_index' %}">공지사항</a>
+{#                                    <a href="{% url 'shop:get_question_list' %}">Q&A</a>#}
+                                    <a href="{% url 'shop:qna_index' %}">Q&A</a>
+                                    <a href="{% url 'shop:get_review_list'%}">리뷰게시판</a>
+
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo">
+                            <a href="{% url "shop:index" %}"><img src="{% static 'img/store_logo2_1027.gif' %}" alt="로고"></a>
+                        </div>
+                        <div class="right_menu">
+                            <ul>
+                                <li class="all_list" style="padding:0 18px 0 0">
+                                    <a href="">마이페이지</a>
+                                    <a href="{% url 'shop:get_shopbasket_list' %}">
+                                        <img src="{% static 'img/basket.png' %}">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="wrap">
+            <div id="container">
+                <div id="contents">
+                </div>
+            </div>
+        </div>
+
+                {% block html_body %}
+                {% endblock %}
+
+    </body>
+</html>

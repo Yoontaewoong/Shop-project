@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block html_header %}
+<script src="{% static 'js/payment_process.js' %}"></script>
+{% endblock %}
+{% block html_body %}
+<div class="container my-3">
+<table class="table" style="text-align: center">
+        <thead>
+        <tr class="thead-dark">
+            <th>주문번호</th>
+            <th></th>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>주문 수량</th>
+            <th>합계</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for buy in buy_list %}
+            <tr>
+                <td>{{ buy.id }}</td>
+                <td>
+                    <img src="{{ buy.product.p_image }}" width="100px">
+                </td>
+                <td>{{ buy.product.p_title }}</td>
+                <td class="product_price" data-price="{{ buy.product.p_lprice }}">{{ buy.product.p_lprice }} 원</td>
+                <td data-amount="{{ buy.s_amount }}">{{ buy.s_amount }}</td>
+                <td class="sum_result"></td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="text-align: center" colspan="3"><div class="total_amount">총 구매 가격 : </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form action="{% url 'shop:payment_result' %}" class="row g-3" style="margin: auto; background-color: rgba(115, 115, 115, 0.3);" method="post">
+    {% csrf_token %}
+    <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">First name</label>
+        <input type="text" class="form-control" id="validationCustom01" value="" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="validationCustom02" class="form-label">Last name</label>
+        <input type="text" class="form-control" id="validationCustom02" value="" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="validationCustom03" class="form-label">City</label>
+        <input type="text" class="form-control" id="validationCustom03" required>
+        <div class="invalid-feedback">
+          Please provide a valid city.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="validationCustom04" class="form-label">State</label>
+        <select class="form-select" id="validationCustom04" required>
+          <option selected disabled value="">Choose...</option>
+            <option>서울</option>
+            <option>부산광역시</option>
+            <option>대구광역시</option>
+            <option>인천광역시</option>
+            <option>광주광역시</option>
+            <option>대전광역시</option>
+            <option>울산광역시</option>
+            <option>세종특별자치시</option>
+            <option>경기도</option>
+            <option>강원도</option>
+            <option>충청북도</option>
+            <option>충청남도</option>
+            <option>전라북도</option>
+            <option>전라남도</option>
+            <option>경상북도</option>
+            <option>경상남도</option>
+            <option>제주특별자치도</option>
+        </select>
+        <div class="invalid-feedback">
+          Please select a valid state.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="validationCustom05" class="form-label">Zip</label>
+        <input type="text" class="form-control" id="validationCustom05" required>
+        <div class="invalid-feedback">
+          Please provide a valid zip.
+        </div>
+      </div>
+
+        <div class="col-1">
+        <label for="validationCustom05" class="form-label">Card</label>
+        <input type="text" class="form-control" id="validationCustom05" required>
+        <div class="invalid-feedback">
+          Please provide a valid Card.
+        </div>
+        </div>
+    <div class="col-1">
+        <label for="validationCustom05" class="form-label">　</label>
+        <input type="password" class="form-control" id="validationCustom05" required>
+        <div class="invalid-feedback">
+          Please provide a valid Card.
+        </div>
+        </div>
+    <div class="col-1">
+        <label for="validationCustom05" class="form-label">　</label>
+        <input type="password" class="form-control" id="validationCustom05" required>
+        <div class="invalid-feedback">
+          Please provide a valid Card.
+        </div>
+        </div>
+    <div class="col-1">
+        <label for="validationCustom05" class="form-label">　</label>
+        <input type="text" class="form-control" id="validationCustom05" required>
+        <div class="invalid-feedback">
+          Please provide a valid Card.
+        </div>
+        </div>
+      <div class="col-12" >
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="invalidCheck" align="right" required>
+          <label class="form-check-label" for="invalidCheck">
+            Agree to terms and conditions
+          </label>
+          <div class="invalid-feedback">
+            You must agree before submitting.
+          </div>
+        </div>
+      </div>
+        {% for buy in buy_list %}
+            <input type="hidden" name="result_data[]" value="{{ buy.id }}">
+        {% endfor %}
+      <div class="col-12" align="right">
+        <button class="btn btn-primary" type="submit">결제</button>
+          <button type="button" class="btn btn-danger" name="btn-cancel">취소</button>
+      </div>
+    </form>
+</div>
+{% endblock %}

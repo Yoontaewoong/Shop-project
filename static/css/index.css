@@ -1,0 +1,20 @@
+
+.content1 {
+    color: #eff5d4;
+    font-size: 20px;
+    background-color: rgba(115, 115, 115, 0.8);
+    padding: 8px 12px;
+    position: relative;
+    top: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+
+.hot-product {
+    width: auto;
+    height: 600px;
+    max-height: 600px;
+    margin: auto;
+
+}

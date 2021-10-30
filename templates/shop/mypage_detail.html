@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block html_header %}
+
+
+{% endblock %}
+{% block html_body %}
+ <div class="container container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>#</label>
+                    <input type="text" class="form-control form-control-lg" style="font-size: large;" id="user_id" placeholder="{{ user_info.id }}" disabled readonly>
+                </div>
+            </div>
+            <div class="col">
+                 <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control form-control-lg" style="font-size: large;" id="user_title" placeholder="{{ user_info.username }}" disabled readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label>email</label>
+                    <input type="email" class="form-control form-control-lg" style="font-size: large;" id="user_email" placeholder="{{ user_info.email }}" disabled readonly>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>Date joined</label>
+                    <input type="text" class="form-control form-control-lg" style="font-size: large;" id="user_author" placeholder="{{ user_info.date_joined }}" disabled readonly>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>Last login</label>
+                    <input type="text" class="form-control form-control-lg" style="font-size: large;" id="user_author"  placeholder="{{ user_info.last_login }}" disabled readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

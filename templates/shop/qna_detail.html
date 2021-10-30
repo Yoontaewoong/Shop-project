@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block html_body %}
+<div class="container my-3">
+    <h2 class="border-bottom py-2">{{ question.q_title }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ question.q_content }}</div>
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2" style="color: black">
+                    {{ question.q_date }}
+                </div>
+            </div>
+        {% if request.user.username == question.q_author %}
+            <div class="my-3">
+            <a href="{% url 'shop:qna_question_modify' question.id  %}"
+               class="btn btn-sm btn-outline-secondary">수정</a>
+             <a href="{% url 'shop:qna_question_delete' question.id  %}"
+               class="btn btn-sm btn-outline-secondary">삭제</a>
+        </div>
+            {% elif request.user.is_staff %}
+            <a href="{% url 'shop:qna_question_delete' question.id  %}"
+               class="btn btn-sm btn-outline-secondary">삭제</a>
+        {% endif %}
+        </div>
+    </div>
+    <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+    {% for answer in question.answer_set.all %}
+    <div class="card my-3">
+    {% if user.is_staff %}
+    <a href="{% url 'shop:qna_answer_delete' answer.id  %}"
+               class="btn btn-sm btn-outline-secondary">삭제</a>
+    {% endif %}
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ answer.a_title }}</div>
+            <div class="card-text" style="white-space: pre-line;">{{ answer.a_content }}</div>
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2" style="color: black">
+                    {{ answer.a_date }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if request.user.is_staff %}
+    <form action="{% url 'shop:qna_answer_create' question.id %}" method="post" class="my-3">
+        {% csrf_token %}
+         {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+        {% for field in qnaform   %}
+            {% if field.errors %}
+            <strong>{{ field.label }}</strong>
+            {{ field.errors }}
+            {% endif %}
+        {% endfor %}
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <textarea name="a_content" id="a_content" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" value="답변등록" class="btn btn-primary">
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

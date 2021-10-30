@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block html_body %}
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>#</th>
+            <th></th>
+            <th>Product</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if review_list %}
+        {% for review in review_list %}
+            <tr>
+                <td>{{ review.id }}</td>
+                <td>
+                    <img src="{{ review.product.p_image }}" width="100px">
+                </td>
+                <td>
+                    <a href="{% url 'shop:product_detail' review.product.p_id %}">{{ review.product.p_title|truncatechars:10}}</a>
+                </td>
+                <td>
+                    <a href="{% url 'shop:review_detail' review.id %}">{{ review.r_title }}</a>
+                </td>
+                <td>{{ review.user.username }}</td>
+                <td>{{ review.r_date }}</td>
+            </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">작성된 리뷰가 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+        
+        
+        <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if review_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ review_list.previous_page_number }}">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in review_list.paginator.page_range %}
+            {% if page_number >= review_list.number|add:-5 and page_number <= review_list.number|add:5 %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if review_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ review_list.next_page_number }}">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+        </div>
+{% endblock %}

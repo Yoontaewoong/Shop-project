@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block html_body %}
+<div class="container container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>#</label>
+                    <input type="text" class="form-control" id="notice_id" placeholder="{{ notice.id }}" readonly>
+                </div>
+            </div>
+            <div class="col">
+                 <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="notice_title" placeholder="{{ notice.n_title }}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" class="form-control" id="notice_date" placeholder="{{ notice.n_date }}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" class="form-control" id="notice_author" placeholder="관리자" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>TextArea</label>
+                    <textarea class="form-control" id="notice_area" rows="10" readonly>{{ notice.n_text }}</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group" align="right">
+            <a href="{% url 'shop:get_notice_list'%}"><button type="button" class="btn btn-primary">목록</button></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

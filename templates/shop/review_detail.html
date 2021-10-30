@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block html_body %}
+   <div class="container container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>#</label>
+                    <input type="text" class="form-control" id="review_id" placeholder="{{ review.id }}" readonly>
+                </div>
+            </div>
+            <div class="col">
+                 <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="review_title" placeholder="{{ review.r_title }}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label>Product</label>
+                    <a href="{% url 'shop:product_detail' review.product.p_id %}">
+                    <input type="text" class="form-control" id="review_product" placeholder="{{ review.product.p_title|truncatechars:10}}" readonly>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" class="form-control" id="review_date" placeholder="{{ review.r_date }}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" class="form-control" id="review_author" placeholder="{{ review.user.username }}" readonly>
+                </div>
+            </div>
+        </div>
+       <br><br><br>
+
+        <div class="row">
+            <div class="col">
+            <div class="form-group">
+                <a href="{% url 'shop:product_detail' review.product.p_id %}"><img src="{{ review.product.p_image }}"></a>
+            </div>
+            </div>
+            <div class="col">
+            <div class="form-group">
+                <label>후기</label>
+                    <textarea class="form-control" id="review_area" rows="10" readonly>{{ review.r_text }}</textarea>
+            </div>
+            </div>
+        </div>
+        </div>
+{% endblock %}

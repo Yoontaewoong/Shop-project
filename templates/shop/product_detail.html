@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block html_header %}
+<link rel="stylesheet" href="/nicepage.css?version=5adcd3a1-0b09-4b22-b746-4df3a1bb67b7" media="screen"
+      xmlns="http://www.w3.org/1999/html">
+<script class="u-script" type="text/javascript" src="//static.nicepage.com/shared/assets/jquery-1.9.1.min.js" defer=""></script>
+<script class="u-script" type="text/javascript" src="//capp.nicepage.com/33c4c23188dd8ad284b84f9cb12ff4b3d3437da3/nicepage.js" defer=""></script>
+
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="canonical" href="/web/tweet-button">
+    <link rel="me" href="https://twitter.com/twitterdev">
+
+{% endblock %}
+{% block html_body %}
+<div class="container my-3">
+<section class="u-clearfix u-section-2" id="sec-d092">
+      <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-sheet-1"><!--product--><!--product_options_json--><!--{"source":""}--><!--/product_options_json--><!--product_item-->
+        <div class="u-container-style u-expanded-width u-product u-product-1">
+          <div class="u-container-layout u-valign-bottom-lg u-valign-bottom-md u-valign-top-xl u-container-layout-1"><!--product_image-->
+            <img src="{{ product.p_image }}" alt="" class="u-image u-image-default u-product-control u-image-1"><!--/product_image--><!--product_image--><img src="{{ product.p_image }}" alt="" class="u-image u-image-default u-product-control u-image-2">
+            <div class="u-align-left-lg u-align-left-md u-align-left-sm u-align-left-xs u-container-style u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-shape-rectangle u-group-1">
+              <div class="u-container-layout u-valign-middle u-container-layout-2"><!--product_title-->
+                <h2 class="u-product-control u-text u-text-default u-text-1">
+                  <!--product_title_content-->{{ product.p_title }}<!--/product_title_content-->
+                </h2><!--/product_title--><!--product_price-->
+                <div class="u-product-control u-product-price u-product-price-1">
+                  <div class="u-price-wrapper u-spacing-10"><!--product_old_price-->
+                    <!--/product_old_price--><!--product_regular_price-->
+                    <div class="u-price" style="font-size: 1.875rem; font-weight: 700;">
+                        <!--product_regular_price_content-->{{ product.p_lprice }} 원<!--/product_regular_price_content--></div><!--/product_regular_price-->
+                  </div>
+                </div><!--/product_price--><!--product_content-->
+                <div class="u-product-control u-product-desc u-text u-text-default u-text-2"><!--product_content_content-->
+                  <p>#{{ product.p_category1 }} #{{ product.p_category2 }} #{{ product.p_category3 }} #{{ product.p_category4 }} </p><!--/product_content_content-->
+                </div><!--/product_content--><!--product_button--><!--options_json--><!--{"clickType":"add-to-cart"}--><!--/options_json--><br>
+                  <a class="twitter-share-button"
+  href="https://twitter.com/intent/tweet?text=Hello%20world"
+  data-size="large">
+Tweet</a>
+                  <br><br>
+                  <form name="do_in_basket" method="post">
+                      {% csrf_token %}
+                      <div class="form-floating mb-1">
+                          <input type="number" class="form-control" name="amount" min="1" placeholder="1">
+                          <label for="floatingInput">수량</label>
+                      </div>
+                      {% if user.is_authenticated %}
+                          <button type="submit" class="u-border-2 u-border-black u-btn u-button-style u-hover-black u-none u-product-control u-text-black u-text-hover-white u-btn-1"><!--product_button_content-->Add to Cart<!--/product_button_content--></button><!--/product_button-->
+                          {% else %}
+                        <button type="submit" class="u-border-2 u-border-black u-btn u-button-style u-hover-black u-none u-product-control u-text-black u-text-hover-white u-btn-1" disabled><!--product_button_content-->Add to Cart<!--/product_button_content--></button><!--/product_button-->
+                      {% endif %}
+
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div><!--/product_item--><!--/product-->
+      </div>
+</section>
+
+ <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col" width="20%">Author</th>
+                            <th scope="col" width="70%">review</th>
+                            <th scope="col" width="10%">　</th>
+                          </tr>
+                        </thead>
+                        <tbody id="mytbody">
+                            {% for review in product.review_set.all %}
+                            <tr>
+                                <td>{{ review.user.username }}</td>
+                                <td>
+                                    <a href="{% url 'shop:review_detail' review.id %}">{{ review.r_text }}</a>
+                                </td>
+{#                                <td><button type="button" name="review_delete" data-id="{{ review.id }}" data-post="{{ post.id }}" class="btn btn-danger">Delete</button></td>#}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+</div>
+{% endblock %}
